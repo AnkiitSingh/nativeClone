@@ -23,7 +23,7 @@ class Onboarding extends React.Component {
         <Block flex center>
         <ImageBackground
             source={Images.Onboarding}
-            style={{ height, width, zIndex: 1 }}
+            style={{ height, width, zIndex: 2 }}
           />
         </Block>
         <Block center>
@@ -33,21 +33,17 @@ class Onboarding extends React.Component {
             <Block flex space="around" style={{ zIndex: 2 }}>
               <Block style={styles.title}>
                 <Block>
-                  <Text color="white" size={60}>
-                    Design
+                  <Text color="white" size={40} center>
+                    Local Grocers
                   </Text>
                 </Block>
-                <Block>
-                  <Text color="white" size={60}>
-                    System
-                  </Text>
-                </Block>
-                <Block style={styles.subTitle}>
-                  <Text color="white" size={16}>
-                    Fully coded React Native components.
-                  </Text>
-                </Block>
+               
               </Block>
+              <Block style={styles.subTitle} center>
+                  <Text color="white" size={16}>
+                    " Get you products delivered "
+                  </Text>
+                </Block>
               <Block center>
                 <Button
                   style={styles.button}
@@ -55,7 +51,7 @@ class Onboarding extends React.Component {
                   onPress={() => navigation.navigate("App")}
                   textStyle={{ color: argonTheme.COLORS.BLACK }}
                 >
-                  Get Started
+                  Order Products
                 </Button>
               </Block>
           </Block>
@@ -83,16 +79,18 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 60,
+    height: 200,
     zIndex: 2,
+    borderRadius:20,
     position: 'relative',
-    marginTop: '-50%'
+    marginTop: '-70%'
   },
   title: {
-    marginTop:'-5%'
+    marginTop:'-7%'
   },
   subTitle: {
-    marginTop: 20
+    marginTop: 60,
+    position: 'relative',
   }
 });
 

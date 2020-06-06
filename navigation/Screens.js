@@ -208,7 +208,7 @@ function AppStack(props) {
         itemStyle: {
           width: width * 0.75,
           backgroundColor: "transparent",
-          paddingVertical: 16,
+          paddingVertical: 5,
           paddingHorizonal: 12,
           justifyContent: "center",
           alignContent: "center",
