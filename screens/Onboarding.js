@@ -37,7 +37,6 @@ class Onboarding extends React.Component {
                     Local Grocers
                   </Text>
                 </Block>
-               
               </Block>
               <Block style={styles.subTitle} center>
                   <Text color="white" size={16}>
