@@ -34,16 +34,6 @@ const BasketButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const SearchButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
-    <Icon
-      size={16}
-      family="Galio"
-      name="search-zoom-in"
-      color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-  </TouchableOpacity>
-);
 
 class Header extends React.Component {
   handleLeftPress = () => {
@@ -105,59 +95,24 @@ class Header extends React.Component {
         break;
     }
   }
-  renderSearch = () => {
-    const { navigation } = this.props;
-    return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        placeholder="What are you looking for?"
-        placeholderTextColor={'#8898AA'}
-        onFocus={() => navigation.navigate('Pro')}
-        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
-      />
-    );
-  }
   renderOptions = () => {
     const { navigation, optionLeft, optionRight } = this.props;
 
     return (
       <Block row style={styles.options}>
-        <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon name="diamond" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionLeft || 'Beauty'}</Text>
-          </Block>
-        </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
           <Block row middle>
             <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
-            <Text size={16} style={styles.tabTitle}>{optionRight || 'Fashion'}</Text>
+            <Text size={16} style={styles.tabTitle}>{optionRight || 'Categories'}</Text>
           </Block>
-        </Button>
       </Block>
     );
-  }
-  renderTabs = () => {
-    const { tabs, tabIndex, navigation } = this.props;
-    const defaultTab = tabs && tabs[0] && tabs[0].id;
-    
-    if (!tabs) return null;
-
-    return (
-      <Tabs
-        data={tabs || []}
-        initialIndex={tabIndex || defaultTab}
-        onChange={id => navigation.setParams({ tabId: id })} />
-    )
   }
   renderHeader = () => {
     const { search, options, tabs } = this.props;
     if (search || tabs || options) {
       return (
         <Block center>
-          {search ? this.renderSearch() : null}
+          
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
         </Block>
@@ -223,7 +178,7 @@ const styles = StyleSheet.create({
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
-    paddingTop: iPhoneX ? theme.SIZES.BASE * 4 : theme.SIZES.BASE,
+    paddingTop: 35,
     zIndex: 5,
   },
   shadow: {
@@ -249,14 +204,6 @@ const styles = StyleSheet.create({
   divider: {
     borderRightWidth: 0.3,
     borderRightColor: theme.COLORS.ICON,
-  },
-  search: {
-    height: 48,
-    width: width - 32,
-    marginHorizontal: 16,
-    borderWidth: 1,
-    borderRadius: 3,
-    borderColor: argonTheme.COLORS.BORDER
   },
   options: {
     marginBottom: 24,
