@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
-    paddingTop: 35,
+    paddingTop: 30,
     zIndex: 5,
   },
   shadow: {

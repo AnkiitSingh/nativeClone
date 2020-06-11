@@ -1,44 +1,102 @@
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, theme } from 'galio-framework';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  ActivityIndicator
+} from "react-native";
+import { Card, CardItem } from "native-base";
 
-import { Card } from '../components';
-import articles from '../constants/articles';
-const { width } = Dimensions.get('screen');
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: []
+    };
+  }
 
-class Home extends React.Component {
-  renderArticles = () => {
-    return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}>
-        <Block flex>
-          <Block flex row>
-            <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Card item={articles[2]} />
-          </Block>
-        </Block>
-      </ScrollView>
-    )
+  getUserFromApi = () => {
+    return fetch("https://randomuser.me/api/?results=50")
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          isLoading: false,
+          dataSource: this.state.dataSource.concat(responseJson.results)
+        });
+      })
+      .catch(error => console.log(error));
+  };
+
+  _keyExtractor = (datasource, index) => datasource.email;
+
+  componentDidMount() {
+    this.getUserFromApi();
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.progress}>
+          <ActivityIndicator size="large" color="#01CBC6" />
+        </View>
+      );
+    }
+
     return (
-      <Block flex center style={styles.home}>
-        {this.renderArticles()}
-      </Block>
+      <FlatList
+        data={this.state.dataSource}
+        keyExtractor={this._keyExtractor}
+        renderItem={({ item }) => (
+          <Card>
+            <CardItem>
+              <View style={styles.container}>
+                <Image
+                  style={styles.profilepic}
+                  source={{
+                    uri: item.picture.medium
+                  }}
+                />
+              </View>
+              <View style={styles.userinfo}>
+                <Text>
+                  Name: {item.name.title} {item.name.first} {item.name.last}
+                </Text>
+                <Text>Email: {item.email}</Text>
+                <Text>City: {item.location.city}</Text>
+                <Text>Phone: {item.phone}</Text>
+              </View>
+            </CardItem>
+          </Card>
+        )}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  home: {
-    width: width,    
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
   },
-  articles: {
-    width: width - theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE,
+  profilepic: {
+    flex: 2,
+    height: 100,
+    width: 100,
+    marginLeft:25
   },
+  userinfo: {
+    flex: 5,
+    flexDirection: "column",
+    marginLeft:50
+  },
+  progress: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
-
-export default Home;
