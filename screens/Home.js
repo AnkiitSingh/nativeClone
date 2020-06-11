@@ -5,9 +5,11 @@ import {
   View,
   FlatList,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from "react-native";
 import { Card, CardItem } from "native-base";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -36,7 +38,9 @@ export default class App extends React.Component {
     this.getUserFromApi();
   }
 
+
   render() {
+    const { navigation } = this.props;
     if (this.state.isLoading) {
       return (
         <View style={styles.progress}>
@@ -50,6 +54,7 @@ export default class App extends React.Component {
         data={this.state.dataSource}
         keyExtractor={this._keyExtractor}
         renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate('Articles')}>
           <Card>
             <CardItem>
               <View style={styles.container}>
@@ -70,6 +75,7 @@ export default class App extends React.Component {
               </View>
             </CardItem>
           </Card>
+          </TouchableOpacity>
         )}
       />
     );

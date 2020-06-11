@@ -1,14 +1,16 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
 import { argonTheme } from '../constants';
 
 
 class Card extends React.Component {
-  
+  buttonPressed(){
+    Alert.alert("Button Pressed")
+  }
   render() {
     const { navigation, item, horizontal, full, style, ctaColor, imageStyle } = this.props;
     
